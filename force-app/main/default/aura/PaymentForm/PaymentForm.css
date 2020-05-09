@@ -1,0 +1,46 @@
+.THIS .group-order-table-header {
+    background-color: #fafaf9;
+    color: #514f4d;
+    padding: 0.25rem 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  
+  .THIS .group-order-table-cell {
+    border-top: 1px solid #dddbda;
+    padding: 0.25rem 0.5rem;
+    white-space: nowrap;
+    position: relative;
+  }
+  
+  .THIS .loading::after {
+    position: absolute;
+    content: "Please wait while loading...";
+    width: 100%;
+    text-align: center;
+    top: calc(50% + 3em);
+    font-weight: bold;
+  }
+  .THIS .creating::after {
+    position: absolute;
+    content: "Please wait while your order is created...";
+    width: 100%;
+    text-align: center;
+    top: calc(50% + 3em);
+    font-weight: bold;
+  }
+  
+  .THIS .slds-checkbox_toggle [type="checkbox"] + .slds-checkbox_faux_container .slds-checkbox_on,
+  .THIS .slds-checkbox_toggle [type="checkbox"] + .slds-checkbox_faux_container .slds-checkbox_off {
+    display: none;
+  }
+  
+  .THIS .group-disclaimer .slds-checkbox {
+    margin-bottom: 0.75rem;
+  }
+  
+  .THIS .group-disclaimer .slds-checkbox .slds-form-element__label {
+    color: #98184c;
+    font-weight: bold;
+  }
+  

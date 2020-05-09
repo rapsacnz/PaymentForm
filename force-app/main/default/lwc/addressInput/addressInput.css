@@ -1,0 +1,3 @@
+.slds-form-element_horizontal:not(.slds-form-element_readonly) {
+  margin-bottom: unset;
+}

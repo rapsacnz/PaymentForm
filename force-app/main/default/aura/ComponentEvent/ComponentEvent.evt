@@ -1,0 +1,7 @@
+<aura:event type="COMPONENT" description="Event template" >
+
+    <aura:attribute name="category" type="String" />
+    <aura:attribute name="data" type="Object" />
+    <aura:attribute name="context" type="Object" />
+
+</aura:event>

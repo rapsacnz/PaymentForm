@@ -1,0 +1,93 @@
+<template>
+
+  <div class="slds ">
+
+    <!-- slds-p-left_x-small slds-p-right_x-small  -->
+    <div class="slds-grid  slds-wrap ">
+
+      <div class="slds-col slds-size_1-of-1 slds-large-size_8-of-12 cc-input slds-form ">
+
+        <div class="slds-form__row">
+          <div class="slds-form__item" role="listitem">
+            <div class="slds-form-element slds-form-element_horizontal slds-form-element_1-col cardNumberFormElement"
+              id="cardNumberFormElement">
+              <label class="slds-form-element__label" for="number">
+                <abbr class="slds-required" title="required">*</abbr>
+                Card Number
+              </label>
+              <div class="slds-form-element__control">
+                <input placeholder="Card number" type="tel" name="number" class="slds-input" oninput={handleCCInput}
+                  onchange={handleCCInput} onblur={handleCCInput}>
+                <div class="slds-form-element__help slds-hide cardNumberError" id="cardNumberError">Please enter a valid
+                  credit card number</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-form__row">
+          <div class="slds-form__item" role="listitem">
+            <div class="slds-form-element slds-form-element_horizontal slds-form-element_1-col cardNameFormElement"
+              id="cardNameFormElement">
+              <label class="slds-form-element__label" for="name">
+                <abbr class="slds-required" title="required">*</abbr>
+                Full Name
+              </label>
+              <div class="slds-form-element__control">
+                <input placeholder="Full name" type="text" name="name" class="slds-input" oninput={handleNameInput}
+                  onblur={handleNameInput}>
+                <div class="slds-form-element__help slds-hide cardNameError" id="cardNameError">Please enter your name
+                  as it appears on your card</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-form__row">
+          <div class="slds-form__item" role="listitem">
+            <div class="slds-form-element slds-form-element_horizontal cardExpiryFormElement"
+              id="cardExpiryFormElement">
+              <label class="slds-form-element__label" for="expiry">
+                <abbr class="slds-required" title="required">*</abbr>
+                Expiry
+              </label>
+              <div class="slds-form-element__control">
+                <input placeholder="MM/YY" type="tel" name="expiry" class="slds-input" oninput={handleExpiryInput}
+                  onblur={handleExpiryInput}>
+                <div class="slds-form-element__help slds-hide cardExpiryError" id="cardExpiryError">Please enter a valid
+                  date in the future</div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="slds-form__item" role="listitem">
+            <div class="slds-form-element slds-form-element_horizontal cardCVVFormElement" id="cardCVVFormElement">
+              <label class="slds-form-element__label" for="cvc">
+                <abbr class="slds-required" title="required">*</abbr>
+                CVV/CVC
+              </label>
+              <div class="slds-form-element__control">
+                <input placeholder="CVC" type="number" name="cvc" class="slds-input" oninput={handleCVVInput}
+                  onblur={handleCVVInput}>
+                <div class="slds-form-element__help slds-hide cardCVVError" id="cardCVVError">Please enter a valid
+                  CVV/CVC number</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="slds-col slds-size_1-of-1 slds-large-size_4-of-12" style="height: 143px;">
+        <div lwc:dom="manual" id="cc-wrapper" class="cc-wrapper cc-inner-wrapper">
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</template>

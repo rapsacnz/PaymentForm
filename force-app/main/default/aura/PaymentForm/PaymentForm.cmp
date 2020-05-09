@@ -1,0 +1,141 @@
+<aura:component access="global" >
+
+
+  <!-- <aura:handler name="init" value="{!this}" action="{!c.init}" /> -->
+
+  <aura:attribute name="userId" type="String" />
+
+  <!-- should default to true -->
+  <aura:attribute name="showSpinner" type="Boolean" default="false" />
+  <aura:attribute name="spinnerClass" type="String" default="loading" />
+
+  
+  <aura:attribute name="cardValid" type="Boolean" default="false" />
+  <aura:attribute name="formValid" type="Boolean" default="false" />
+  <aura:attribute name="addressValid" type="Boolean" default="false" />
+  <aura:attribute name="disableHandlers" type="Boolean" default="true" />
+  <aura:attribute name="rendered" type="Boolean" default="false" />
+
+  <aura:attribute name="cardDetails" type="Map" default="{}" />
+
+  <aura:attribute name="price" type="Decimal" default="0" />
+  <aura:attribute name="total" type="Decimal" default="0" />
+  <aura:attribute name="priceFormatted" type="String" />
+  <aura:attribute name="totalFormatted" type="String" />
+  <aura:attribute name="paymentType" type="String" default="Prepaid" />
+  <aura:attribute name="variation" type="String" default="" />
+
+  <aura:attribute name="newOrder" type="Map" default="{}" />
+  <aura:attribute name="newOrderItems" type="List" default="[]" />
+  <aura:attribute name="newAccount" type="Map"
+    default="{BillingStreet:'',BillingCity:'',BillingState:'',BillingPostalCode:'',BillingCountry:''}" />
+  <aura:attribute name="internationalAddress" type="Boolean" description="" default="false" />
+
+  <aura:attribute name="paymentMethods" type="List" default="[{'label': 'Credit Card', 'value': 'Credit Card', selected: true},
+  {'label': 'Purchase Order', 'value': 'Purchase Order'},
+  {'label': 'Check', 'value': 'Check'}]" />
+  <aura:attribute name="paymentMethod" type="String" default="Credit Card" />
+  <aura:attribute name="checkNumber" type="String" default="" />
+  <aura:attribute name="poNumber" type="String" default="" />
+
+  <aura:attribute name="stateOptions" type="List" />
+  <aura:attribute name="countryOptions" type="List" />
+
+  <aura:handler name="change" value="{!v.paymentMethod}" action="{!c.handlePaymentMethodChange}" />
+
+  <aura:registerEvent name="requestErrorNotification" type="c:ComponentEvent" />
+  <aura:registerEvent name="requestSuccessNotification" type="c:ComponentEvent" />
+
+  <aura:handler name="requestErrorNotification" event="c:ComponentEvent" action="{!c.displayError}" />
+  <aura:handler name="requestSuccessNotification" event="c:ComponentEvent" action="{!c.displayNotification}" />
+  <aura:handler name="render" value="{!this}" action="{!c.onRender}" />
+
+  <div class=" slds-card " style="overflow-x: hidden; min-height:400px; ">
+
+      <div class="">
+        <div class="slds-grid  slds-m-top_medium ">
+          <div class="slds-col slds-size_1-of-1 slds-large-size_8-of-12">
+
+            <div class="slds-form ">
+
+              <lightning:radioGroup name="paymentMethodRadio" label="Pay With" options="{! v.paymentMethods }"
+                value="{! v.paymentMethod }" type="button" variant="label-inline"
+                class="slds-form-element slds-form-element_horizontal slds-form-element_1-col  " />
+
+
+              <aura:if isTrue="{! v.paymentMethod eq 'Check'}">
+                <div class="slds-form__row slds-m-bottom_medium">
+                  <div class="slds-form__item" role="listitem">
+                    <div class="slds-form-element slds-form-element_horizontal slds-form-element_1-col  "
+                      id="checkNumberForm">
+                      <label class="slds-form-element__label" for="checkNumber">
+                        <abbr class="slds-required" title="required">*</abbr>
+                        Check Number
+                      </label>
+                      <div class="slds-form-element__control">
+                        <input placeholder="Enter check number" value="{!v.checkNumber}" type="text" name="checkNumber"
+                          class="slds-input" id="checkNumberInput" onchange="{!c.handleCheckChange}"
+                          oninput="{!c.handleCheckChange}">{!v.checkNumber}</input>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </aura:if>
+
+              <aura:if isTrue="{! v.paymentMethod eq 'Purchase Order'}">
+                <div class="slds-form__row slds-m-bottom_medium">
+                  <div class="slds-form__item" role="listitem">
+                    <div class="slds-form-element slds-form-element_horizontal slds-form-element_1-col slds-is-editing "
+                      id="purchaseOrderForm">
+                      <label class="slds-form-element__label" for="purchaseOrder">
+                        <abbr class="slds-required" title="required">*</abbr>
+                        Purchase Order
+                      </label>
+                      <div class="slds-form-element__control">
+                        <input placeholder="Enter purchase order number" value="{!v.poNumber}" type="text"
+                          name="purchaseOrder" class="slds-input" id="purchaseOrderInput" onchange="{!c.handlePOChange}"
+                          oninput="{!c.handlePOChange}">{!v.poNumber}</input>
+                        <div class="slds-form-element__help slds-hide" id="purchaseOrderError">Please enter a purchase
+                          order</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </aura:if>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- card input -->
+        <div style="{! not(v.paymentMethod eq 'Credit Card') ? 'visibility: hidden; height: 0;' : ''}">
+          <div class="group-order-cc-container">
+            <c:cardInput class="group-order-cc-container" oncardComplete="{!c.handleCardComplete}"
+              oncardIncomplete="{!c.handleCardIncomplete}" onpaymentMethodChange="{!c.handlePaymentMethodChange}" />
+          </div>
+        </div>
+
+        <!-- address input  -->
+        <div class="slds-grid slds-wrap ">
+          <div class="slds-col slds-size_1-of-1 slds-large-size_8-of-12 ">
+            <c:addressInput onaddressvalid="{!c.handleAddressValid}" onaddressinvalid="{!c.handleAddressInvalid}"
+              address="{#v.newAccount}" stateOptions="{!v.stateOptions}" />
+          </div>
+        </div>
+
+      </div>
+
+      <footer class="slds-card__footer slds-modal__footer " style="text-align:center;">
+        <button class="slds-button slds-button_brand" onclick="{!c.handleNextClick}" disabled="{! not(v.formValid) || not(v.addressValid) }">Submit Payment</button>
+      </footer>
+
+
+    <aura:if isTrue="{! v.showSpinner}">
+      <lightning:spinner class="{!v.spinnerClass}" alternativeText="Loading" size="large" />
+    </aura:if>
+
+
+
+  </div>
+
+</aura:component>
