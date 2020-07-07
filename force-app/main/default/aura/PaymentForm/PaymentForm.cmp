@@ -15,7 +15,8 @@
   <aura:attribute name="addressValid" type="Boolean" default="false" />
   <aura:attribute name="disableHandlers" type="Boolean" default="true" />
   <aura:attribute name="rendered" type="Boolean" default="false" />
-
+  <aura:attribute name="otherPaymentOptions" type="Boolean" default="false" />
+  
   <aura:attribute name="cardDetails" type="Map" default="{}" />
 
   <aura:attribute name="price" type="Decimal" default="0" />
@@ -53,6 +54,8 @@
   <div class=" slds-card " style="overflow-x: hidden; min-height:400px; ">
 
       <div class="">
+
+        <aura:if isTrue="{!v.otherPaymentOptions}">
         <div class="slds-grid  slds-m-top_medium ">
           <div class="slds-col slds-size_1-of-1 slds-large-size_8-of-12">
 
@@ -106,6 +109,17 @@
 
           </div>
         </div>
+       </aura:if>
+       <aura:if isTrue="{! !(v.otherPaymentOptions)}">
+       <div class="slds-form" role="list">
+        <div class="slds-form__row">
+          <div class="slds-form__item" role="listitem">
+            <legend class="slds-form-element__legend slds-form-element__label slds-form-element_horizontal">Credit Card Details
+            </legend>
+          </div>
+        </div>
+      </div>
+      </aura:if>
 
         <!-- card input -->
         <div style="{! not(v.paymentMethod eq 'Credit Card') ? 'visibility: hidden; height: 0;' : ''}">
