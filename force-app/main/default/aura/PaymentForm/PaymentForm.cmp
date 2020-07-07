@@ -15,7 +15,7 @@
   <aura:attribute name="addressValid" type="Boolean" default="false" />
   <aura:attribute name="disableHandlers" type="Boolean" default="true" />
   <aura:attribute name="rendered" type="Boolean" default="false" />
-  <aura:attribute name="otherPaymentOptions" type="Boolean" default="false" />
+  <aura:attribute name="otherPaymentOptions" type="Boolean" default="true" />
   
   <aura:attribute name="cardDetails" type="Map" default="{}" />
 
