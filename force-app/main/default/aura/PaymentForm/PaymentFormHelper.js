@@ -1,4 +1,8 @@
 ({
+
+    processPayment: function(component){
+      //call your back end payment processing engine here
+    },
   
     checkIfFormValid: function(component) {
       var formValid = false;
