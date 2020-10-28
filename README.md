@@ -8,7 +8,7 @@ Massive thanks to Jessie Pollack whose library I heavily borrowed to make this l
 https://github.com/jessepollak/card/
 
 Note, the containing app is an AURA app, which the individual CC and Address input forms are full LWC Components.
-I haven't been bothered converting the containing app or component to Aura, but it should be pretty easy really.
+I haven't had time to convert the containing app or component to Aura, but it should be pretty easy really.
 
 # How it looks:
 [![payment gif][1]][1]
