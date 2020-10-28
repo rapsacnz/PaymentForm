@@ -13,7 +13,7 @@ I haven't had time to convert the containing app or component to Aura, but it sh
 # How it looks:
 [![payment gif][1]][1]
 
-[1]: https://github.com/rapsacnz/PaymentForm/blob/master/PaymentForm2.gif
 [2]: https://media.giphy.com/media/ifMS0C6OgaOOsTm4Wg/giphy.gif
+[1]: https://github.com/rapsacnz/PaymentForm/blob/master/PaymentForm2.gif
 
 
